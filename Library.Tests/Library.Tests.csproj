@@ -9,6 +9,6 @@
     <PackageReference Include="MySqlConnector" Version="0.29.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Todolist\todolist.csproj" />
+    <ProjectReference Include="..\Library\Library.csproj" />
   </ItemGroup>
 </Project>
