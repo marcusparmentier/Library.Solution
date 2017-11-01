@@ -73,24 +73,7 @@ namespace Library.Models
       }
     }
 
-    public void Delete()
-    {
-      MySqlConnection conn = DB.Connection();
-      conn.Open();
-      var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"DELETE FROM authors WHERE id = @AuthorId; DELETE FROM books_authors WHERE author_id = @AuthorId;";
 
-      MySqlParameter authorIdParameter = new MySqlParameter();
-      authorIdParameter.ParameterName = "@AuthorId";
-      authorIdParameter.Value = this.GetId();
-      cmd.Parameters.Add(authorIdParameter);
-
-      cmd.ExecuteNonQuery();
-      if (conn != null)
-      {
-        conn.Close();
-      }
-    }
 
     public void Save()
     {
@@ -260,24 +243,23 @@ namespace Library.Models
       return books;
     }
 
-    public void DeleteAuthor()
+    public void Delete()
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"DELETE FROM authors WHERE id = @AuthorId; DELETE FROM books_authors WHERE author_id = @AuthorId;";
 
-      MySqlCommand cmd = new MySqlCommand("DELETE FROM authors WHERE id = @AuthorId; DELETE FROM books_authors WHERE author_id = @AuthorId;", conn);
       MySqlParameter authorIdParameter = new MySqlParameter();
       authorIdParameter.ParameterName = "@AuthorId";
       authorIdParameter.Value = this.GetId();
-
       cmd.Parameters.Add(authorIdParameter);
-      cmd.ExecuteNonQuery();
 
+      cmd.ExecuteNonQuery();
       if (conn != null)
       {
         conn.Close();
       }
     }
-
   }
 }

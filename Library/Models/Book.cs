@@ -180,7 +180,9 @@ namespace Library.Models
       MySqlConnection conn = DB.Connection();
       conn.Open();
 
-      MySqlCommand cmd = new MySqlCommand("DELETE FROM books WHERE id = @BookId; DELETE FROM books_authors WHERE book_id = @BookId;", conn);
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"DELETE FROM books WHERE id = @BookId; DELETE FROM books_authors WHERE book_id = @BookId;";
+
       MySqlParameter bookIdParameter = new MySqlParameter();
       bookIdParameter.ParameterName = "@BookId";
       bookIdParameter.Value = this.GetId();
