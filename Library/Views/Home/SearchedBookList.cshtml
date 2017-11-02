@@ -1,0 +1,18 @@
+@{
+  Layout = "_Layout";
+}
+
+<h1>Library</h1>
+<hr />
+<h2>Author: @Model["author"].GetAuthorName()</h2>
+<hr />
+@if (@Model["bookAuthors"].Count != 0)
+{
+  <h4>Here are all the Books by this Author:</h4>
+  <ol>
+    @foreach (var author in @Model["bookAuthors"])
+    {
+      <li>@author.GetAuthorName()</li>
+    }
+  </ol>
+}

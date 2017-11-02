@@ -1,0 +1,21 @@
+@{
+  Layout = "_Layout";
+}
+
+<h1>Library</h1>
+<hr />
+<h2>Books:</h2>
+<h4>Search by Author:</h4>
+<form action='/books/authors/list' method='post'>
+  <label for='author-id'>Select an author</label>
+  <select id='author-id' name='author-id' type='text' required>
+    @foreach (var author in Model)
+    {
+      <option value='@author.GetId()'>@author.GetAuthorName()</option>
+    }
+  </select>
+  <button type='submit'>Search</button>
+</form>
+
+<h4><a href="/books">List of Books</a></h4>
+<h4><a href="/librarian">Return to Directory</a></h4>

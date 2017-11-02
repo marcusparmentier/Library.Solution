@@ -47,6 +47,31 @@ namespace Library.Controllers
         newBook.Save();
         return View("Success");
     }
+
+    [HttpGet("/books/search")]
+    public ActionResult SearchBookForm()
+    {
+      List<Author> AllAuthors = Author.GetAll();
+      return View(AllAuthors);
+    }
+//
+    [HttpPost('/books/authors/list')]
+    public ActionResult SearchBookFormSubmit()
+    {
+
+
+    }
+
+    [HttpGet("/books/list")]
+    public ActionResult SearchedBookList()
+    {
+      Author selectedAuthor = Author.Find(id);
+      List<Book> AuthorBooks = selectedAuthor.GetBooks();
+      return View(AuthorBooks);
+    }
+//
+
+
     //ONE Book
     [HttpGet("/books/{id}")]
     public ActionResult BookDetail(int id)
@@ -67,8 +92,7 @@ namespace Library.Controllers
     {
         Book book = Book.Find(bookId);
         Author author = Author.Find(Int32.Parse(Request.Form["author-id"]));
-        Console.WriteLine("Book Id = " + book.GetId());
-        Console.WriteLine("Author Id = " + author.GetId());
+
         book.AddAuthor(author);
         return View("Success");
     }
