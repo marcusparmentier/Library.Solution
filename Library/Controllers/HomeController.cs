@@ -66,7 +66,7 @@ namespace Library.Controllers
             model.Add("author", selectedAuthor);
             model.Add("authorBooks", AuthorBooks);
             model.Add("allBooks", AllBooks);
-            return View(model);
+            return View("AuthorDetail",model);
 
         }
 
