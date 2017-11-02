@@ -10,22 +10,79 @@ namespace Library.Controllers
   {
 
     [HttpGet("/")]
-        public ActionResult Index()
-        {
-            return View();
-        }
-        [HttpGet("/authors")]
-        public ActionResult Authors()
-        {
-            List<Author> allAuthors = Author.GetAll();
-            return View(allAuthors);
-        }
-        [HttpGet("/books")]
-        public ActionResult Books()
-        {
-            List<Book> allBooks = Book.GetAll();
-            return View(allBooks);
-        }
+    public ActionResult Index()
+    {
+        return View();
+    }
+
+    [HttpGet("/librarian")]
+    public ActionResult LibrarianDirectory()
+    {
+      return View();
+    }
+
+    [HttpGet("/patrons")]
+    public ActionResult PatronHomepage()
+    {
+        return View();
+    }
+
+    [HttpGet("/books")]
+    public ActionResult Books()
+    {
+        List<Book> allBooks = Book.GetAll();
+        return View(allBooks);
+    }
+
+    [HttpGet("/books/new")]
+    public ActionResult BookForm()
+    {
+        return View();
+    }
+
+    [HttpPost("/books/new")]
+    public ActionResult BookCreate()
+    {
+        Book newBook = new Book(Request.Form["book-title"], Request.Form["book-genre"]);
+        newBook.Save();
+        return View("Success");
+    }
+    //ONE Book
+    [HttpGet("/books/{id}")]
+    public ActionResult BookDetail(int id)
+    {
+        Dictionary<string, object> model = new Dictionary<string, object>();
+        Book SelectedBook = Book.Find(id);
+        List<Author> BookAuthors = SelectedBook.GetAuthors();
+        List<Author> AllAuthors = Author.GetAll();
+        model.Add("book", SelectedBook);
+        model.Add("bookAuthors", BookAuthors);
+        model.Add("allAuthors", AllAuthors);
+        return View(model);
+    }
+
+    //ADD Author TO Book
+    [HttpPost("books/{bookId}/authors/new")]
+    public ActionResult BookAddAuthor(int bookId)
+    {
+        Book book = Book.Find(bookId);
+        Author author = Author.Find(Int32.Parse(Request.Form["author-id"]));
+        Console.WriteLine("Book Id = " + book.GetId());
+        Console.WriteLine("Author Id = " + author.GetId());
+        book.AddAuthor(author);
+        return View("Success");
+    }
+
+
+
+
+    [HttpGet("/authors")]
+    public ActionResult Authors()
+    {
+        List<Author> allAuthors = Author.GetAll();
+        return View(allAuthors);
+    }
+
 
         //NEW Author
         [HttpGet("/authors/new")]
@@ -42,18 +99,8 @@ namespace Library.Controllers
         }
 
         //NEW Book
-        [HttpGet("/books/new")]
-        public ActionResult BookForm()
-        {
-            return View();
-        }
-        [HttpPost("/books/new")]
-        public ActionResult BookCreate()
-        {
-            Book newBook = new Book(Request.Form["book-title"], Request.Form["book-genre"]);
-            newBook.Save();
-            return View("Success");
-        }
+
+
 
         //ONE Author
         [HttpGet("/authors/{id}")]
@@ -70,29 +117,10 @@ namespace Library.Controllers
 
         }
 
-        //ONE Book
-        [HttpGet("/books/{id}")]
-        public ActionResult BookDetail(int id)
-        {
-            Dictionary<string, object> model = new Dictionary<string, object>();
-            Book SelectedBook = Book.Find(id);
-            List<Author> BookAuthors = SelectedBook.GetAuthors();
-            List<Author> AllAuthors = Author.GetAll();
-            model.Add("book", SelectedBook);
-            model.Add("bookAuthors", BookAuthors);
-            model.Add("allAuthors", AllAuthors);
-            return View(model);
-        }
 
-        //ADD Author TO CATEGORY
-        [HttpPost("books/{bookId}/authors/new")]
-        public ActionResult BookAddAuthor(int bookId)
-        {
-            Book book = Book.Find(bookId);
-            Author author = Author.Find(Int32.Parse(Request.Form["author-id"]));
-            book.AddAuthor(author);
-            return View("Success");
-        }
+
+
+
         //ADD Book TO Author
         [HttpPost("authors/{authorId}/books/new")]
         public ActionResult AuthorAddBook(int authorId)

@@ -1,41 +1,9 @@
-@* @using Library.Models;
-@var authorId = @Model["author"].GetId(); *@
-
-@* <h1>Library</h1>
-<h2>Book: @Model["author"].GetAuthorName()</h2>
-<hr />
-@if (@Model["authorBooks"].Count != 0)
-{
-  <h4>This author has these authors:</h4>
-  <ul>
-    @foreach (Book book in @Model["authorBooks"])
-    {
-      <li>@book.GetTitle()</li>
-    }
-  </ul>
-}
-<h4>Add a book to this author:</h4>
-<form action='/authors/Model["author"].GetId()/books/new' method='post'>
-  <label for='book-id'>Select a book</label>
-  <select id='book-id' name='book-id' type='text'>
-    @foreach (var book in @Model["allBooks"])
-    {
-      <option value='@book.GetId()'>@book.GetTitle()</option>
-    }
-  </select>
-  <button type='submit'>Add</button>
-</form>
-<p><a href="/">Return to Main Page</a></p> *@
-
-
-
-
 
 <h1>Library</h1>
 <h2>Book: @Model["author"].GetAuthorName()</h2>
 <hr />
-@* @if (@Model["authorBooks"].Count != 0) *@
-
+@if (@Model["authorBooks"].Count != 0)
+{
   <h4>Here are all the books for this author:</h4>
   <ul>
     @foreach (var book in Model["authorBooks"])
@@ -43,9 +11,10 @@
       <li>@book.GetTitle()</li>
     }
   </ul>
+}
 
 <h4>Add a Book to this author:</h4>
-<form action='/authors/Model["author"].GetId()/books/new' method='post'>
+<form action='/authors/@Model["author"].GetId()/books/new' method='post'>
   <label for='book-id'>Select a book</label>
   <select id='book-id' name='book-id' type='text'>
     @foreach (var book in @Model["allBooks"])

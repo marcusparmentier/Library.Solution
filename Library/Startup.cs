@@ -24,6 +24,7 @@ namespace Library
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseDeveloperExceptionPage();
             app.UseStaticFiles();
             app.UseMvc(routes =>
             {
