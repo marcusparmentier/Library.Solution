@@ -1,8 +1,15 @@
-<h1>Add a new Author</h1>
+@{
+  Layout = "_Layout";
+}
+
+<h1>Library</h1>
+<h2>Add a new Author</h2>
+<hr>
 <form action="/authors/new" method="post">
   <label for="author-name">Author Name:</label>
-  <input id="author-name" name="author-name" type="text">
+  <input id="author-name" name="author-name" type="text" required>
   <button type="submit">Add new author</button>
 </form>
-<p><a href="/">Back home</a></p>
-<p><a href="/authors">View all Authors</a></p>
+
+<h4><a href="/librarian">Return to directory</a></h4>
+@* <p><a href="/authors">View all Authors</a></p> *@

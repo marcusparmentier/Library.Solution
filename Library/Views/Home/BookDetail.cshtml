@@ -1,5 +1,9 @@
+@{
+  Layout = "_Layout";
+}
 
 <h1>Library</h1>
+<hr />
 <h2>Book: @Model["book"].GetTitle()</h2>
 <hr />
 @if (@Model["bookAuthors"].Count != 0)
@@ -15,7 +19,7 @@
 <h4>Add an Author to this book:</h4>
 <form action='/books/@Model["book"].GetId()/authors/new' method='post'>
   <label for='author-id'>Select an author</label>
-  <select id='author-id' name='author-id' type='text'>
+  <select id='author-id' name='author-id' type='text' required>
     @foreach (var author in @Model["allAuthors"])
     {
       <option value='@author.GetId()'>@author.GetAuthorName()</option>
@@ -24,5 +28,5 @@
   <button type='submit'>Add</button>
 </form>
 
-<p><a href="/books">List of Books</a></p>
+<h4><a href="/books">List of Books</a></h4>
 <h4><a href="/librarian">Return to Directory</a></h4>

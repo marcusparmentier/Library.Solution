@@ -1,11 +1,17 @@
+@{
+  Layout = "_Layout";
+}
+
+
 <h1>Library</h1>
 <h2>Add new Book</h2>
 <hr />
 <form action="/books/new" method="post">
   <label for="book-title">Book Title:</label>
-  <input id="book-title" name="book-title" type="text">
+  <input id="book-title" name="book-title" type="text" required>
   <label for="book-genre">Book Genre:</label>
-  <input id="book-genre" name="book-genre" type="text">
+  <input id="book-genre" name="book-genre" type="text" required>
   <button type="submit">Add</button>
 </form>
+
 <h4><a href="/librarian">Return to directory</a></h4>
